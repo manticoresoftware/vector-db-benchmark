@@ -35,8 +35,8 @@ class ManticoreSearchSearcher(BaseSearcher):
                 "field": "vector",
                 "query_vector": vector,
                 "k": top,
+                **{**cls.search_params.get('options', {})},
             },
-            **{"options": {"cutoff": 100}, **cls.search_params}
         }
 
         meta_conditions = cls.parser.parse(meta_conditions)
@@ -45,4 +45,3 @@ class ManticoreSearchSearcher(BaseSearcher):
 
         res = cls.session.post(cls.base_url, json=knn).json()
         return [(int(hit["_id"]), hit["_score"]) for hit in res["hits"]["hits"]]
-
