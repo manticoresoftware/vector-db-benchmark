@@ -4,7 +4,7 @@ from multiprocessing import get_context
 from typing import Iterable, List, Optional, Tuple
 
 import numpy as np
-from engine.base_client.tqdm_from_one import TqdmFromOne
+import tqdm
 
 from dataset_reader.base_reader import Query
 
@@ -71,10 +71,9 @@ class BaseSearcher:
         search_one = functools.partial(self.__class__._search_one, top=top)
 
         if parallel == 1:
-            print(queries)
             start = time.perf_counter()
             precisions, latencies = list(
-                zip(*[search_one(query) for query in TqdmFromOne(queries)])
+                zip(*[search_one(query) for query in tqdm.tqdm(queries)])
             )
         else:
             ctx = get_context(self.get_mp_start_method())
@@ -93,7 +92,7 @@ class BaseSearcher:
                     time.sleep(15)  # Wait for all processes to start
                 start = time.perf_counter()
                 precisions, latencies = list(
-                    zip(*pool.imap_unordered(search_one, iterable=TqdmFromOne(queries)))
+                    zip(*pool.imap_unordered(search_one, iterable=tqdm.tqdm(queries)))
                 )
 
         total_time = time.perf_counter() - start
