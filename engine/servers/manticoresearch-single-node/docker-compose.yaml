@@ -2,7 +2,7 @@ version: '3.5'
 
 services:
   searchd:
-    image: manticoresearch/manticore:dev-6.2.13-85fede4
+    image: manticoresearch/manticore:dev-6.2.13-7047a53
     environment:
       EXTRA: 1
     ports:
