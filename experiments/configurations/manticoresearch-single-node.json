@@ -1,14 +1,18 @@
-[  
+[
   {
     "name": "manticoresearch-default",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 100 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -16,12 +20,16 @@
     "name": "manticoresearch-m-16-ef-128",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 128 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -29,12 +37,16 @@
     "name": "manticoresearch-m-32-ef-128",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 128 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -42,12 +54,16 @@
     "name": "manticoresearch-m-32-ef-256",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -55,12 +71,16 @@
     "name": "manticoresearch-m-32-ef-512",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 512 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -68,12 +88,16 @@
     "name": "manticoresearch-m-64-ef-256",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 256 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   },
@@ -81,12 +105,16 @@
     "name": "manticoresearch-m-64-ef-512",
     "engine": "manticoresearch",
     "connection_params": {
-      "request_timeout": 10000
+      "timeout": 30
     },
     "collection_params": { "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 512 } },
     "search_params": [
-      { "parallel": 1, "options": {"ef": 128} }, { "parallel": 1, "options": {"ef": 256} }, { "parallel": 1, "options": {"ef": 512} },
-      { "parallel": 100, "options": {"ef": 128} }, { "parallel": 100, "options": {"ef": 256} }, { "parallel": 100, "options": {"ef": 512} }
+      { "parallel": 1, "options": { "ef": 128 } },
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 1, "options": { "ef": 512 } },
+      { "parallel": 100, "options": { "ef": 128 } },
+      { "parallel": 100, "options": { "ef": 256 } },
+      { "parallel": 100, "options": { "ef": 512 } }
     ],
     "upload_params": { "parallel": 16 }
   }

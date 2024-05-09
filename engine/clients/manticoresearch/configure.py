@@ -24,7 +24,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
         query = f"DROP TABLE IF EXISTS `{MANTICORESEARCH_TABLE}`" 
         data = 'query=' + requests.utils.quote(query, safe='')
-        response = requests.post(url, data)
+        response = requests.post(url, data, **self.connection_params)
         if response.status_code != 200:
             print(f'Error cleaning table: {response.text}')
 
@@ -56,7 +56,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         """
         url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
         data = 'query=' + requests.utils.quote(query, safe='')
-        response = requests.post(url, data)
+        response = requests.post(url, data, **self.connection_params)
 
         if response.status_code != 200:
             print(f'Error creating table: {response.text}')

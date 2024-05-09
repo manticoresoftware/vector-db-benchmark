@@ -12,6 +12,7 @@ from engine.clients.manticoresearch.parser import ManticoreSearchConditionParser
 import requests
 
 class ManticoreSearchSearcher(BaseSearcher):
+    connection_params = {}
     search_params = {}
     parser = ManticoreSearchConditionParser()
 
@@ -25,7 +26,7 @@ class ManticoreSearchSearcher(BaseSearcher):
         cls.session.headers.update({"Content-Type": "application/json"})
         cls.base_url = urljoin(f"http://{host}:{MANTICORESEARCH_PORT}", "/search")
         cls.search_params = search_params
-        print(search_params)
+        cls.connection_params = connection_params
 
     @classmethod
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
@@ -43,5 +44,5 @@ class ManticoreSearchSearcher(BaseSearcher):
         meta_conditions = cls.parser.parse(meta_conditions)
         if meta_conditions:
             knn.update(meta_conditions)
-        res = cls.session.post(cls.base_url, json=knn).json()
+        res = cls.session.post(cls.base_url, json=knn, **cls.connection_params).json()
         return [(int(hit["_id"]) - 1, hit["_knn_dist"]) for hit in res["hits"]["hits"]]
