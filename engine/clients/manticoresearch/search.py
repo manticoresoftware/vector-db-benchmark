@@ -37,11 +37,11 @@ class ManticoreSearchSearcher(BaseSearcher):
                 "k": top,
                 **{**cls.search_params.get('options', {})},
             },
+            "limit": top,
         }
 
         meta_conditions = cls.parser.parse(meta_conditions)
         if meta_conditions:
             knn.update(meta_conditions)
-
         res = cls.session.post(cls.base_url, json=knn).json()
-        return [(int(hit["_id"]), hit["_score"]) for hit in res["hits"]["hits"]]
+        return [(int(hit["_id"]), hit["_knn_dist"]) for hit in res["hits"]["hits"]]
