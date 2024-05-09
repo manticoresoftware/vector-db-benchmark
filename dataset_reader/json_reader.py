@@ -64,7 +64,7 @@ class JSONReader(BaseReader):
         for idx, (vector, payload) in enumerate(
             zip(self.read_vectors(), self.read_payloads())
         ):
-            yield Record(id=idx+1, vector=vector, metadata=payload)
+            yield Record(id=idx, vector=vector, metadata=payload)
 
 
 if __name__ == "__main__":

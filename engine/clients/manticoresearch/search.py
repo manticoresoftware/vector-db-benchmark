@@ -44,4 +44,4 @@ class ManticoreSearchSearcher(BaseSearcher):
         if meta_conditions:
             knn.update(meta_conditions)
         res = cls.session.post(cls.base_url, json=knn).json()
-        return [(int(hit["_id"]), hit["_knn_dist"]) for hit in res["hits"]["hits"]]
+        return [(int(hit["_id"]) - 1, hit["_knn_dist"]) for hit in res["hits"]["hits"]]

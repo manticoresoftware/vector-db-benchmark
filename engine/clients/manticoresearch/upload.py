@@ -45,7 +45,7 @@ class ManticoreSearchUploader(BaseUploader):
         for id, vector, payload in zip(ids, vectors, metadata):
             data = {
                 "index": MANTICORESEARCH_TABLE,
-                "id": id, 
+                "id": id + 1, # we do not support id=0 
                 "doc": {
                     "vector": vector
                 }            
