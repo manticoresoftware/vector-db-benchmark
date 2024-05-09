@@ -23,6 +23,7 @@ class ManticoreSearchSearcher(BaseSearcher):
     @classmethod
     def init_client(cls, host, distance, connection_params: dict, search_params: dict):
         cls.session = requests.Session()
+        cls.session.headers.update({"Connection": "keep-alive"})
         cls.session.headers.update({"Content-Type": "application/json"})
         cls.base_url = urljoin(f"http://{host}:{MANTICORESEARCH_PORT}", "/search")
         cls.search_params = search_params
