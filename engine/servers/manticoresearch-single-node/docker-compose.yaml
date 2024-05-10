@@ -1,10 +1,11 @@
-version: '3.5'
+version: '3.7'
 
 services:
   searchd:
     image: manticoresearch/manticore:dev-6.2.13-7047a53
     environment:
       EXTRA: 1
+      searchd_threads: 8
     ports:
       - "9308:9308"
     logging:
@@ -16,3 +17,4 @@ services:
       resources:
         limits:
           memory: 25Gb
+          cpus: "1.0"

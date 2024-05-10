@@ -33,6 +33,7 @@ class ManticoreSearchSearcher(BaseSearcher):
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
         knn = {
             "index": MANTICORESEARCH_TABLE,
+            "_source": "id",
             "knn": {
                 "field": "vector",
                 "query_vector": vector,
