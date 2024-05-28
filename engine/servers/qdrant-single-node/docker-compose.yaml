@@ -16,3 +16,4 @@ services:
       resources:
         limits:
           memory: 25Gb
+          cpus: "1.0"

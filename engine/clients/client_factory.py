@@ -31,6 +31,12 @@ from engine.clients.weaviate import (
     WeaviateUploader,
 )
 
+from engine.clients.manticoresearch import (
+    ManticoreSearchConfigurator,
+    ManticoreSearchSearcher,
+    ManticoreSearchUploader,
+)
+
 ENGINE_CONFIGURATORS = {
     "qdrant": QdrantConfigurator,
     "weaviate": WeaviateConfigurator,
@@ -39,6 +45,7 @@ ENGINE_CONFIGURATORS = {
     "opensearch": OpenSearchConfigurator,
     "redis": RedisConfigurator,
     "pgvector": PgVectorConfigurator,
+    "manticoresearch": ManticoreSearchConfigurator,
 }
 
 ENGINE_UPLOADERS = {
@@ -49,6 +56,7 @@ ENGINE_UPLOADERS = {
     "opensearch": OpenSearchUploader,
     "redis": RedisUploader,
     "pgvector": PgVectorUploader,
+    "manticoresearch": ManticoreSearchUploader,
 }
 
 ENGINE_SEARCHERS = {
@@ -59,6 +67,7 @@ ENGINE_SEARCHERS = {
     "opensearch": OpenSearchSearcher,
     "redis": RedisSearcher,
     "pgvector": PgVectorSearcher,
+    "manticoresearch": ManticoreSearchSearcher,
 }
 
 

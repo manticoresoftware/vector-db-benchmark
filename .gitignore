@@ -3,6 +3,6 @@
 __pycache__
 *.pyc
 NOTES.md
-
+.DS_Store
 results/*
 tools/custom/data.json
