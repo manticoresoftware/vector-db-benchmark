@@ -63,7 +63,7 @@ class ManticoreSearchUploader(BaseUploader):
 
         response = cls.session.post(
             f"{cls.api_url}/sql?mode=raw", 
-            data=f"query=OPTIMIZE%20TABLE%20%60{MANTICORESEARCH_TABLE}%60%20sync%3D1",
+            data=f"query=OPTIMIZE%20TABLE%20%60{MANTICORESEARCH_TABLE}%60%20OPTION%20sync%3D1",
             timeout=None
         )
         response.raise_for_status()
