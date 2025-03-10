@@ -61,6 +61,10 @@ class ManticoreSearchUploader(BaseUploader):
         response = cls.session.post(f"{cls.api_url}/sql?mode=raw", data=f"query=FLUSH%20RAMCHUNK%60{MANTICORESEARCH_TABLE}%60")
         response.raise_for_status()
 
+        # Unset timeout for session cuz optimize is quite long query
+        old_timeout = cls.session.timeout
+        cls.session.timeout = None
         response = cls.session.post(f"{cls.api_url}/sql?mode=raw", data=f"query=OPTIMIZE%20TABLE%20{MANTICORESEARCH_TABLE}%20sync%3D1%60")
         response.raise_for_status()
+        cls.session.timeout = old_timeout
         return {}
