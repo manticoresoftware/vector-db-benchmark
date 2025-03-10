@@ -17,6 +17,42 @@
     "upload_params": { "parallel": 16 }
   },
   {
+    "name": "manticoresearch-quantization-1bit",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30 },
+    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "1bit" } },
+    "search_params": [
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 8, "options": { "ef": 256 } },
+      { "parallel": 16, "options": { "ef": 256 } }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024 }
+  },
+  {
+    "name": "manticoresearch-quantization-4bit",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30 },
+    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "4bit" } },
+    "search_params": [
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 8, "options": { "ef": 256 } },
+      { "parallel": 16, "options": { "ef": 256 } }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024 }
+  },
+  {
+    "name": "manticoresearch-quantization-8bit",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30 },
+    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "8bit" } },
+    "search_params": [
+      { "parallel": 1, "options": { "ef": 256 } },
+      { "parallel": 8, "options": { "ef": 256 } },
+      { "parallel": 16, "options": { "ef": 256 } }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024 }
+  },
+  {
     "name": "manticoresearch-m-16-ef-128",
     "engine": "manticoresearch",
     "connection_params": {

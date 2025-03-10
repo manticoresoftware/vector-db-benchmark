@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   searchd:
-    image: manticoresearch/manticore:dev-6.2.13-7047a53
+    image: manticoresearch/manticore:dev-7.4.7-39a6f50
     environment:
       EXTRA: 1
       searchd_threads: 8
