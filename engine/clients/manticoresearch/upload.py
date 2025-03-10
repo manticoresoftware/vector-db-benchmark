@@ -60,4 +60,7 @@ class ManticoreSearchUploader(BaseUploader):
     def post_upload(cls, _distance):
         response = cls.session.post(f"{cls.api_url}/sql?mode=raw", data=f"query=FLUSH%20RAMCHUNK%60{MANTICORESEARCH_TABLE}%60")
         response.raise_for_status()
+
+        response = cls.session.post(f"{cls.api_url}/sql?mode=raw", data=f"query=OPTIMIZE%20TABLE%20{MANTICORESEARCH_TABLE}%20sync%3D1%60")
+        response.raise_for_status()
         return {}
