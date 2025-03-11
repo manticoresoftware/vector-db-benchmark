@@ -37,6 +37,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
@@ -46,6 +47,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
@@ -55,58 +57,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
-            "oversampling": 1.0
-          }
-        }
-      }
-    ],
-    "upload_params": { "parallel": 16, "batch_size": 1024 }
-  },
-  {
-    "name": "qdrant-quantization-4bit",
-    "engine": "qdrant",
-    "connection_params": { "timeout": 30 },
-    "collection_params": {
-      "hnsw_config": {
-        "m": 32,
-        "ef_construct": 256
-      },
-      "quantization_config": {
-        "scalar": {
-          "type": "int4",
-          "quantile": 0.99
-        }
-      },
-      "optimizers_config": {
-        "max_segment_size": 1000000,
-        "default_segment_number": 3,
-        "memmap_threshold": 10000000
-      }
-    },
-    "search_params": [
-      {
-        "parallel": 1,
-        "search_params": {
-          "hnsw_ef": 256,
-          "quantization": {
-            "oversampling": 1.0
-          }
-        }
-      },
-      {
-        "parallel": 8,
-        "search_params": {
-          "hnsw_ef": 256,
-          "quantization": {
-            "oversampling": 1.0
-          }
-        }
-      },
-      {
-        "parallel": 16,
-        "search_params": {
-          "hnsw_ef": 256,
-          "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
@@ -141,6 +92,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
@@ -150,6 +102,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
@@ -159,6 +112,7 @@
         "search_params": {
           "hnsw_ef": 256,
           "quantization": {
+						"rescore": false,
             "oversampling": 1.0
           }
         }
