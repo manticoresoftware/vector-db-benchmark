@@ -13,6 +13,66 @@
     "upload_params": { "parallel": 16 }
   },
   {
+    "name": "elasticsearch-quantization-1bit",
+    "engine": "elasticsearch",
+    "connection_params": {
+      "request_timeout": 10000
+    },
+    "collection_params": { "index_options": { "m": 32, "ef_construction": 256 },        "binary_quantization": { "type": "random_projection" } },
+    "search_params": [
+      { "parallel": 1, "num_candidates": 256 },
+      { "parallel": 8, "num_candidates": 256 },
+      { "parallel": 16, "num_candidates": 256 },
+    ],
+    "upload_params": { "parallel": 16 }
+  },
+  {
+    "name": "elasticsearch-quantization-4bit",
+    "engine": "elasticsearch",
+    "connection_params": {
+      "request_timeout": 10000
+    },
+		"collection_params": {
+			"index_options": {
+				"m": 32,
+				"ef_construction": 256
+			},
+			"scalar_quantization": {
+				"type": "float4"
+			}
+		},
+    "search_params": [
+      { "parallel": 1, "num_candidates": 256 },
+      { "parallel": 8, "num_candidates": 256 },
+      { "parallel": 16, "num_candidates": 256 },
+    ],
+    "upload_params": { "parallel": 16 }
+  },
+  {
+    "name": "elasticsearch-quantization-8bit",
+    "engine": "elasticsearch",
+    "connection_params": {
+      "request_timeout": 10000
+    },
+		"collection_params": {
+			"index_options": {
+				"m": 32,
+				"ef_construction": 256
+			},
+			"scalar_quantization": {
+				"type": "float8"
+			}
+		},
+    "search_params": [
+      { "parallel": 1, "num_candidates": 256 },
+      { "parallel": 8, "num_candidates": 256 },
+      { "parallel": 16, "num_candidates": 256 },
+    ],
+    "upload_params": { "parallel": 16 }
+  },
+
+
+  {
     "name": "elasticsearch-m-16-ef-128",
     "engine": "elasticsearch",
     "connection_params": {
