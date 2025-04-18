@@ -51,7 +51,10 @@ class ElasticSearcher(BaseSearcher):
             "field": "vector",
             "query_vector": vector,
             "k": top,
-            **{"num_candidates": 100, **cls.search_params},
+            **{
+                "num_candidates": 100, 
+                **{k: v for k, v in cls.search_params.items() if k != 'parallel'}
+            }
         }
 
         meta_conditions = cls.parser.parse(meta_conditions)
