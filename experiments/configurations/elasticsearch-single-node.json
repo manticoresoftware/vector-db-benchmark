@@ -21,10 +21,8 @@
 		"collection_params": {
 			"index_options": {
 				"m": 32,
-				"ef_construction": 256
-			},
-			"binary_quantization": {
-				"type": "random_projection"
+				"ef_construction": 256,
+				"type": "bbq_hnsw"
 			}
 		},
     "search_params": [
@@ -43,10 +41,8 @@
 		"collection_params": {
 			"index_options": {
 				"m": 32,
-				"ef_construction": 256
-			},
-			"scalar_quantization": {
-				"type": "float4"
+				"ef_construction": 256,
+				"type": "int4_hnsw"
 			}
 		},
     "search_params": [
@@ -65,10 +61,8 @@
 		"collection_params": {
 			"index_options": {
 				"m": 32,
-				"ef_construction": 256
-			},
-			"scalar_quantization": {
-				"type": "float8"
+				"ef_construction": 256,
+				"type": "int8_hnsw"
 			}
 		},
     "search_params": [
