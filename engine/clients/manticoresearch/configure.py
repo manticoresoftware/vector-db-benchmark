@@ -14,6 +14,15 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         Distance.L2: "L2",
         Distance.COSINE: "COSINE",
     }
+
+
+    INDEX_TYPE_MAPPING = {
+        "int": "uint",
+        "keyword": "string",
+        "text": "text",
+        "float": "float",
+        "geo": "json",  # Manticore typically handles geo as JSON
+    }
     
     def __init__(self, host, collection_params, connection_params):
         self.host = host
