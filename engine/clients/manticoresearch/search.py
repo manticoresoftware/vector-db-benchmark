@@ -38,6 +38,8 @@ class ManticoreSearchSearcher(BaseSearcher):
                 "field": "vector",
                 "query_vector": vector,
                 "k": top,
+#                "rescore": True,
+#                "oversampling": 3.0,
                 **{**cls.search_params.get('options', {})},
             },
             "limit": top,

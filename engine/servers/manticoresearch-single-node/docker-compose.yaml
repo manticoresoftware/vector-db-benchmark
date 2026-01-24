@@ -2,10 +2,11 @@ version: '3.7'
 
 services:
   searchd:
-    image: manticoresearch/manticore:dev-7.4.7-39a6f50
+    image: manticoresearch/manticore:dev-16.0.10
     environment:
       EXTRA: 1
     ports:
+      - "9306:9306"
       - "9308:9308"
     logging:
       driver: "json-file"

@@ -31,7 +31,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
 
     def clean(self):
         url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
-        query = f"DROP TABLE IF EXISTS `{MANTICORESEARCH_TABLE}`" 
+        query = f"DROP TABLE IF EXISTS `{MANTICORESEARCH_TABLE}`"
         data = 'query=' + requests.utils.quote(query, safe='')
         response = requests.post(url, data, **self.connection_params)
         if response.status_code != 200:
@@ -61,7 +61,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         query = f"""
         CREATE TABLE IF NOT EXISTS `{MANTICORESEARCH_TABLE}` (
             {field_definitions}
-        )
+        ) optimize_cutoff='1' engine='columnar'
         """
         url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
         data = 'query=' + requests.utils.quote(query, safe='')
@@ -69,3 +69,11 @@ class ManticoreSearchConfigurator(BaseConfigurator):
 
         if response.status_code != 200:
             print(f'Error creating table: {response.text}')
+
+#        query = f"SET GLOBAL auto_optimize=0"
+#        url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
+#        data = 'query=' + requests.utils.quote(query, safe='')
+#        response = requests.post(url, data, **self.connection_params)
+
+#        if response.status_code != 200:
+#            print(f'Error running SET GLOBAL: {response.text}')

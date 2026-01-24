@@ -35,13 +35,19 @@ class QdrantSearcher(BaseSearcher):
 
     @classmethod
     def search_one(cls, vector, meta_conditions, top) -> List[Tuple[int, float]]:
+        params = cls.search_params.get("search_params", {}).copy()
+        params["quantization"] = rest.QuantizationSearchParams(
+            ignore=False,
+            rescore=True,
+            oversampling=3.0,
+        )
         res = cls.client.search(
             collection_name=QDRANT_COLLECTION_NAME,
             query_vector=vector,
             query_filter=cls.parser.parse(meta_conditions),
             limit=top,
             search_params=rest.SearchParams(
-                **cls.search_params.get("search_params", {})
+                **params
             ),
         )
         return [(hit.id, hit.score) for hit in res]
