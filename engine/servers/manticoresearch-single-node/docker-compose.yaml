@@ -1,9 +1,13 @@
 version: '3.7'
 
 services:
-  qdrant_bench:
-    image: ${CONTAINER_REGISTRY:-docker.io}/qdrant/qdrant:v1.15.0
-    network_mode: host
+  searchd:
+    image: manticoresearch/manticore:dev-16.0.10
+    environment:
+      EXTRA: 1
+    ports:
+      - "9306:9306"
+      - "9308:9308"
     logging:
       driver: "json-file"
       options:
