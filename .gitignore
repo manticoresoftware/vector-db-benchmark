@@ -6,3 +6,7 @@ NOTES.md
 .DS_Store
 results/*
 tools/custom/data.json
+
+ansible/playbooks/inventory.ini
+
+.python-version
