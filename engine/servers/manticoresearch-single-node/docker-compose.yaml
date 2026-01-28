@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+  searchd:
+    image: manticoresearch/manticore:${MANTICORESEARCH_VERSION:-latest}
+    environment:
+      EXTRA: 1
+    ports:
+      - "${MANTICORESEARCH_PORT:-19308}:9308"
+    logging:
+      driver: "json-file"
+      options:
+        max-file: 1
+        max-size: 10m
+    deploy:
+      resources:
+        limits:
+          memory: 25Gb
+          cpus: "1.0"
