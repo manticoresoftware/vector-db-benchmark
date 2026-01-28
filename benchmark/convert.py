@@ -60,7 +60,19 @@ def main():
         data = json.load(open(search_file))
         experiment_name = data["params"]["experiment"]
         dataset_name = data["params"]["dataset"]
-        engine_params = data["params"]["config"]
+        engine_params = {}
+        upload_params = {
+            k: v
+            for k, v in upload_data[experiment_name]["params"].items()
+            if k not in {"experiment", "engine", "dataset"}
+        }
+        search_params = {
+            k: v
+            for k, v in data["params"].items()
+            if k not in {"experiment", "engine", "dataset", "parallel"}
+        }
+        engine_params.update(upload_params)
+        engine_params.update(search_params)
         parallel = data["params"]["parallel"]
         engine_name = data["params"]["engine"]
 

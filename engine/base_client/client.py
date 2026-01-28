@@ -51,6 +51,7 @@ class BaseClient:
                             "dataset": dataset_name,
                             "experiment": self.name,
                             "engine": self.engine,
+                            "collection_params": self.configurator.collection_params,
                             **search_params,
                         },
                         "results": results,
@@ -120,7 +121,12 @@ class BaseClient:
                 upload_stats,
                 upload_params={
                     **self.uploader.upload_params,
-                    **self.configurator.collection_params,
+                    **{
+                        k: v
+                        for k, v in self.configurator.collection_params.items()
+                        if k not in {"engine", "experiment", "dataset"}
+                    },
+                    "collection_params": self.configurator.collection_params,
                 },
             )
 

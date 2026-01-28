@@ -3,9 +3,14 @@
     "name": "manticoresearch-default",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 100 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 100 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -19,8 +24,12 @@
   {
     "name": "manticoresearch-quantization-1bit",
     "engine": "manticoresearch",
-    "connection_params": { "timeout": 30 },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "1bit" } },
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "1bit" }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 256 } },
       { "parallel": 8, "options": { "ef": 256 } },
@@ -31,8 +40,12 @@
   {
     "name": "manticoresearch-quantization-4bit",
     "engine": "manticoresearch",
-    "connection_params": { "timeout": 30 },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "4bit" } },
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "4bit" }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 256 } },
       { "parallel": 8, "options": { "ef": 256 } },
@@ -43,8 +56,12 @@
   {
     "name": "manticoresearch-quantization-8bit",
     "engine": "manticoresearch",
-    "connection_params": { "timeout": 30 },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "8bit" } },
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256, "quantization": "8bit" }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 256 } },
       { "parallel": 8, "options": { "ef": 256 } },
@@ -56,9 +73,14 @@
     "name": "manticoresearch-m-16-ef-128",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 128 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 16, "hnsw_ef_construction": 128 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -73,9 +95,14 @@
     "name": "manticoresearch-m-32-ef-128",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 128 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 128 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -90,9 +117,14 @@
     "name": "manticoresearch-m-32-ef-256",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 256 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -107,9 +139,14 @@
     "name": "manticoresearch-m-32-ef-512",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 512 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 32, "hnsw_ef_construction": 512 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -124,9 +161,14 @@
     "name": "manticoresearch-m-64-ef-256",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 256 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 256 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
@@ -141,9 +183,14 @@
     "name": "manticoresearch-m-64-ef-512",
     "engine": "manticoresearch",
     "connection_params": {
-      "timeout": 30
+      "timeout": 30,
+      "port": 19308
     },
-    "collection_params": { "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 512 } },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": { "hnsw_m": 64, "hnsw_ef_construction": 512 }
+    },
     "search_params": [
       { "parallel": 1, "options": { "ef": 128 } },
       { "parallel": 1, "options": { "ef": 256 } },
