@@ -71,6 +71,8 @@ class ManticoreSearchUploader(BaseUploader):
             **cls.connection_params,
         )
         response.raise_for_status()
+        if cls.upload_params.get("skip_optimize", False):
+            return {}
 
         request_params = dict(cls.connection_params)
         request_params.pop("timeout", None)

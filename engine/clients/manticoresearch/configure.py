@@ -53,6 +53,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         if engine not in {"columnar", "rowwise"}:
             raise ValueError(f"Unsupported Manticore engine: {engine}")
         optimize_cutoff = collection_params.get("optimize_cutoff", 1)
+        auto_optimize = collection_params.get("auto_optimize", None)
 
         vector_field = {
             'name': 'vector',
@@ -97,10 +98,9 @@ class ManticoreSearchConfigurator(BaseConfigurator):
             if response.status_code != 200:
                 print(f'Error creating table: {response.text}')
 
-#        query = f"SET GLOBAL auto_optimize=0"
-#        url = f'http://{self.host}:{MANTICORESEARCH_PORT}/sql?mode=raw'
-#        data = 'query=' + requests.utils.quote(query, safe='')
-#        response = requests.post(url, data, **self.connection_params)
-
-#        if response.status_code != 200:
-#            print(f'Error running SET GLOBAL: {response.text}')
+        if auto_optimize is not None:
+            auto_optimize_query = f"SET GLOBAL auto_optimize={auto_optimize}"
+            data = 'query=' + requests.utils.quote(auto_optimize_query, safe='')
+            response = requests.post(url, data, **request_params)
+            if response.status_code != 200:
+                print(f'Error setting auto_optimize: {response.text}')

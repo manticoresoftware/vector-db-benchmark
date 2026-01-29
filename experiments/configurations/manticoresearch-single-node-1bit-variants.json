@@ -1,0 +1,211 @@
+[
+  {
+    "name": "manticoresearch-1bit-columnar-no-optimize",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 0,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024, "skip_optimize": true }
+  },
+  {
+    "name": "manticoresearch-1bit-columnar-optimize-16",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 16,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 16
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-columnar-optimize-8",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 8,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 8
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-columnar-optimize-1",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 1,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 1
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-rowwise-no-optimize",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "rowwise",
+      "optimize_cutoff": 0,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024, "skip_optimize": true }
+  },
+  {
+    "name": "manticoresearch-1bit-rowwise-optimize-16",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "rowwise",
+      "optimize_cutoff": 16,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 16
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-rowwise-optimize-8",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "rowwise",
+      "optimize_cutoff": 8,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 8
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-rowwise-optimize-1",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "rowwise",
+      "optimize_cutoff": 1,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 1
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-columnar-optimize-8-no-rescore",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 8,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1, "options": { "rescore": false, "oversampling": 1.0 } },
+      { "parallel": 8, "options": { "rescore": false, "oversampling": 1.0 } },
+      { "parallel": 16, "options": { "rescore": false, "oversampling": 1.0 } }
+    ],
+    "upload_params": {
+      "parallel": 16,
+      "batch_size": 1024,
+      "optimize_cutoff": 8
+    }
+  },
+  {
+    "name": "manticoresearch-1bit-columnar-no-optimize-auto-optimize-0",
+    "engine": "manticoresearch",
+    "connection_params": { "timeout": 30, "port": 19308 },
+    "collection_params": {
+      "engine": "columnar",
+      "optimize_cutoff": 0,
+      "auto_optimize": 0,
+      "knn_options": {
+        "quantization": "1bit"
+      }
+    },
+    "search_params": [
+      { "parallel": 1 },
+      { "parallel": 8 },
+      { "parallel": 16 }
+    ],
+    "upload_params": { "parallel": 16, "batch_size": 1024, "skip_optimize": true }
+  }
+]
