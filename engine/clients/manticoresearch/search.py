@@ -7,6 +7,7 @@ from engine.base_client.search import BaseSearcher
 from engine.clients.manticoresearch.config import (
     MANTICORESEARCH_PORT,
     get_table_name,
+    set_table_name,
 )
 from engine.clients.manticoresearch.parser import ManticoreSearchConditionParser
 import requests
@@ -41,11 +42,14 @@ class ManticoreSearchSearcher(BaseSearcher):
         cls.session.mount("http://", adapter)
         cls.session.headers.update({"Connection": "keep-alive"})
         cls.session.headers.update({"Content-Type": "application/json"})
+        table_name = connection_params.get("table")
+        if table_name:
+            set_table_name(table_name)
         port = connection_params.get("port", MANTICORESEARCH_PORT)
         cls.base_url = urljoin(f"http://{host}:{port}", "/search")
         cls.search_params = search_params
         cls.connection_params = {
-            k: v for k, v in connection_params.items() if k != "port"
+            k: v for k, v in connection_params.items() if k not in {"port", "table"}
         }
 
     @classmethod

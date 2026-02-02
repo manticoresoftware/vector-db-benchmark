@@ -6,6 +6,7 @@ from urllib3.util.retry import Retry
 from engine.clients.manticoresearch.config import (
     MANTICORESEARCH_PORT,
     get_table_name,
+    set_table_name,
 )
 
 from dataset_reader.base_reader import Record
@@ -27,22 +28,47 @@ class ManticoreSearchUploader(BaseUploader):
 
     @classmethod
     def init_client(cls, host, distance, connection_params, upload_params):
+        table_name = connection_params.get("table")
+        if table_name:
+            set_table_name(table_name)
         port = connection_params.get("port", MANTICORESEARCH_PORT)
         cls.api_url = f"http://{host}:{port}"
-        retries = Retry(total=5, backoff_factor=0.1, status_forcelist=[500, 502, 503, 504])
+        # Do not retry on HTTP 5xx here: Manticore /bulk often returns a JSON
+        # body with the actual error and line number; retrying hides it behind
+        # "too many 500 error responses".
+        retries = Retry(
+            total=5,
+            connect=5,
+            read=5,
+            status=0,
+            backoff_factor=0.1,
+            allowed_methods=None,
+            raise_on_status=False,
+        )
         cls.host = host
         cls.session = ClosableSession()
         adapter = HTTPAdapter(max_retries=retries)
         cls.session.mount("http://", adapter)
-        cls.session.headers.update({"Content-type": "application/x-ndjson"})
-        cls.connection_params = {
-            k: v for k, v in connection_params.items() if k != "port"
+        cls.session.headers.update({"Content-Type": "application/x-ndjson"})
+        request_params = {
+            k: v for k, v in connection_params.items() if k not in {"port", "table"}
         }
+        # Manticore bulk uploads can take longer than the default request timeout,
+        # especially with large batch sizes and parallel workers.
+        #
+        # Important: urllib3/http.client uses the same underlying socket timeout
+        # for writing the request body too. So a (connect, read) tuple can still
+        # fail during send if connect stays low. Use a single larger timeout.
+        timeout = request_params.get("timeout")
+        if isinstance(timeout, (int, float)):
+            request_params["timeout"] = max(float(timeout), 300.0)
+        cls.connection_params = request_params
         cls.upload_params = upload_params
 
     @classmethod
     def upload_batch(cls, batch: List[Record]):
         docs = []
+        record_ids = []
         for record in batch:
             if record.vector is None:
                 raise ValueError("ManticoreSearch does not support sparse vectors.")
@@ -50,27 +76,49 @@ class ManticoreSearchUploader(BaseUploader):
             if record.metadata:
                 doc.update(record.metadata)
 
+            record_id = record.id + 1  # we do not support id=0
             data = {
-                "index": get_table_name(),
-                "id": record.id + 1,  # we do not support id=0
+                "table": get_table_name(),
+                "id": record_id,
                 "doc": doc,
             }
             docs.append({"insert": data})
-        data = '\n'.join([json.dumps(item) for item in docs])
+            record_ids.append(record_id)
+
+        payload = "\n".join(json.dumps(item) for item in docs) + "\n"
         response = cls.session.post(
-            f"{cls.api_url}/bulk", data, **cls.connection_params
+            f"{cls.api_url}/bulk", data=payload, **cls.connection_params
         )
-        response.raise_for_status()
+        try:
+            response.raise_for_status()
+        except requests.HTTPError:
+            details = response.text
+            try:
+                body = response.json()
+                if isinstance(body, dict):
+                    current_line = body.get("current_line")
+                    if isinstance(current_line, int) and 1 <= current_line <= len(record_ids):
+                        details = (
+                            f"{details}\n"
+                            f"bulk current_line={current_line}, record_id={record_ids[current_line-1]}, "
+                            f"table={get_table_name()}"
+                        )
+            except Exception:
+                pass
+            print(f"Manticore bulk error {response.status_code}: {details}")
+            raise
 
     @classmethod
     def post_upload(cls, _distance):
         optimize_cutoff = cls.upload_params.get("optimize_cutoff", 1)
         response = cls.session.post(
             f"{cls.api_url}/sql?mode=raw",
-            data=f"query=FLUSH%20RAMCHUNK%60{get_table_name()}%60",
+            data=f"query=FLUSH%20RAMCHUNK%20%60{get_table_name()}%60",
             **cls.connection_params,
         )
         response.raise_for_status()
+        if cls.upload_params.get("skip_optimize", False):
+            return {}
 
         request_params = dict(cls.connection_params)
         request_params.pop("timeout", None)
@@ -106,9 +154,12 @@ class ManticoreSearchUploader(BaseUploader):
                 rows = payload.get("data") or []
                 if rows and isinstance(rows[0], dict):
                     disk_chunks = rows[0].get("disk_chunks")
-            if disk_chunks is not None and int(disk_chunks) != int(optimize_cutoff):
+            # optimize_cutoff is a threshold/limit, not an exact expected value.
+            # Having fewer disk chunks than the cutoff is fine (it means chunks
+            # were merged further).
+            if disk_chunks is not None and int(disk_chunks) > int(optimize_cutoff):
                 raise ValueError(
-                    f"disk_chunks={disk_chunks} does not match optimize_cutoff={optimize_cutoff}"
+                    f"disk_chunks={disk_chunks} is greater than optimize_cutoff={optimize_cutoff}"
                 )
         except Exception as exc:
             raise ValueError(
