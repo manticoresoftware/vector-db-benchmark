@@ -8,4 +8,4 @@ def get_table_name() -> str:
 
 def set_table_name(name: str) -> None:
     global MANTICORESEARCH_TABLE
-    MANTICORESEARCH_TABLE = name
+    MANTICORESEARCH_TABLE = name.lower()

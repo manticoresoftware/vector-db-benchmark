@@ -106,6 +106,15 @@ class BaseClient:
             if not skip_configure:
                 print("Experiment stage: Configure")
                 self.configurator.configure(dataset)
+                # Some engines (e.g. ManticoreSearch) may decide/adjust runtime
+                # connection params during configure (like generating a fallback
+                # table name). Propagate any updates to uploader/searchers so
+                # child processes use the same target.
+                updated_connection_params = dict(getattr(self.configurator, "connection_params", {}) or {})
+                if updated_connection_params:
+                    self.uploader.connection_params = dict(updated_connection_params)
+                    for searcher in self.searchers:
+                        searcher.connection_params = dict(updated_connection_params)
 
             print("Experiment stage: Upload")
             upload_stats = self.uploader.upload(

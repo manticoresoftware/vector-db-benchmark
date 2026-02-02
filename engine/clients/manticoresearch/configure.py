@@ -29,11 +29,14 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         self.host = host
         self.collection_params = collection_params
         self.connection_params = connection_params
+        table_name = self.connection_params.get("table")
+        if table_name:
+            set_table_name(table_name)
 
     def clean(self):
         port = self.connection_params.get("port", MANTICORESEARCH_PORT)
         request_params = {
-            k: v for k, v in self.connection_params.items() if k != "port"
+            k: v for k, v in self.connection_params.items() if k not in {"port", "table"}
         }
         url = f'http://{self.host}:{port}/sql?mode=raw'
         query = f"DROP TABLE IF EXISTS `{get_table_name()}`"
@@ -77,7 +80,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
         """
         port = self.connection_params.get("port", MANTICORESEARCH_PORT)
         request_params = {
-            k: v for k, v in self.connection_params.items() if k != "port"
+            k: v for k, v in self.connection_params.items() if k not in {"port", "table"}
         }
         url = f'http://{self.host}:{port}/sql?mode=raw'
         data = 'query=' + requests.utils.quote(query, safe='')
@@ -88,6 +91,7 @@ class ManticoreSearchConfigurator(BaseConfigurator):
             if "directory is not empty" in error_text:
                 fallback_name = f"{get_table_name()}_{int(time.time())}"
                 set_table_name(fallback_name)
+                self.connection_params["table"] = fallback_name
                 query = f"""
         CREATE TABLE IF NOT EXISTS `{get_table_name()}` (
             {field_definitions}
@@ -97,6 +101,9 @@ class ManticoreSearchConfigurator(BaseConfigurator):
                 response = requests.post(url, data, **request_params)
             if response.status_code != 200:
                 print(f'Error creating table: {response.text}')
+        else:
+            # Persist configured table name so uploader/searchers can use it.
+            self.connection_params["table"] = get_table_name()
 
         if auto_optimize is not None:
             auto_optimize_query = f"SET GLOBAL auto_optimize={auto_optimize}"
