@@ -5,7 +5,8 @@ from engine.base_client.upload import BaseUploader
 
 
 class IncompatibilityError(Exception):
-    pass
+    def __init__(self, message=None):
+        super().__init__(message or "Incompatible engine/dataset parameters")
 
 
 __all__ = [

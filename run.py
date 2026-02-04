@@ -83,9 +83,7 @@ def run(
                         exit(2)
                 client.delete_client()
             except IncompatibilityError as e:
-                print(
-                    f"Skipping {engine_name} - {dataset_name}, incompatible params:", e
-                )
+                print(f"Skipping {engine_name} - {dataset_name}, incompatible params: {e}")
                 continue
             except KeyboardInterrupt:
                 traceback.print_exc()

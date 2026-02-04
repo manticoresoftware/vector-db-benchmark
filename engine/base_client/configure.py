@@ -18,7 +18,11 @@ class BaseConfigurator:
     def recreate(self, dataset: Dataset, collection_params):
         raise NotImplementedError()
 
+    def validate(self, dataset: Dataset) -> None:
+        return None
+
     def configure(self, dataset: Dataset) -> Optional[dict]:
+        self.validate(dataset)
         self.clean()
         return self.recreate(dataset, self.collection_params) or {}
 

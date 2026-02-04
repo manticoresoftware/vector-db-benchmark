@@ -86,7 +86,17 @@ class BaseUploader:
     @classmethod
     def _upload_batch(cls, batch: List[Record]) -> float:
         start = time.perf_counter()
-        cls.upload_batch(batch)
+        try:
+            cls.upload_batch(batch)
+        except Exception as exc:
+            # multiprocessing needs worker exceptions to be picklable; some client
+            # libraries include unpicklable objects (e.g., locks) in exception args.
+            import traceback
+
+            tb = traceback.format_exc()
+            raise RuntimeError(
+                f"{cls.__name__}.upload_batch failed in worker: {exc!r}\n{tb}"
+            ) from None
         return time.perf_counter() - start
 
     @classmethod

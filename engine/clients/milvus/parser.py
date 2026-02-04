@@ -42,4 +42,4 @@ class MilvusConditionParser(BaseConditionParser):
     def build_geo_filter(
         self, field_name: str, lat: float, lon: float, radius: float
     ) -> Any:
-        raise IncompatibilityError
+        raise IncompatibilityError("Milvus geo filters are not supported")
